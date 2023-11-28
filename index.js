@@ -12,7 +12,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 app.all("/*", (req, res) => {
     try {
-        const url = req.query.url.replace(/%20/g, "");
+        // const url = req.query.url.replace(/%20/g, "");
+        const url = req.originalUrl.slice("/?url=".length).replace(/%20/g, "");
         if(!url) return res.status(400).json({ code: "#Error", message: "URL is required" })
         console.log({url})
         request(
